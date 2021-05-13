@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import LoginContext from "./LoginContext"
 import axios from "axios"
 import config from "../config"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 
 const baseUrl = config.baseUrl
 
@@ -37,6 +37,9 @@ export default function Login() {
                 display: loginError === true ? "block" : "none"
             }}>*Invalid credentials. Please try again.</p>
             <button onClick={changeLogin}>Log in</button>
+            <div>
+                <Link to="/register">Create account</Link>
+            </div>
         </React.Fragment>
 
     )
