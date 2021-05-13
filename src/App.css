@@ -7,6 +7,15 @@
 h1,h2,h3,h4,h5,h6{
     font-family: 'Cormorant Garamond', serif;
 }
+.nav-item{
+    text-decoration: none;
+    color:#777777;
+}
+
+.nav-item:hover{
+    text-decoration: underline;
+    color:#d6954b;
+}
 
 .logo-title{
     font-family: 'Cormorant Garamond', serif;
@@ -50,6 +59,11 @@ h1,h2,h3,h4,h5,h6{
     height:40px;
 }
 
+.cta:hover{
+    color: #d6954b;
+    text-decoration: none;
+}
+
 .login-btn-wrapper{
     display:flex;
     justify-content: center;
@@ -83,4 +97,11 @@ h1,h2,h3,h4,h5,h6{
     border-bottom: 1px; 
     border-bottom-style: solid;
     border-bottom-color: #4a4a4a;
+}
+
+.footer-wrapper{
+    background-color: #f4f4f4;
+    padding:1em;
+    display: flex;
+    justify-content: center;
 }

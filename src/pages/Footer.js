@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function Footer() { 
+export default function Footer() {
     return (
         <React.Fragment>
-            <p>© All rights reserved</p>
+            <footer className="footer-wrapper">
+                <p className="mb-0">© All rights reserved</p>
+            </footer>
         </React.Fragment>
 
     )

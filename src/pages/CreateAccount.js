@@ -39,12 +39,12 @@ export default function CreateAccount() {
             setIsPasswordDifferent(false)
         }
 
-        if (isEmailFormat === false && isPasswordDifferent === false && isPasswordShort === false){
+        if (isEmailFormat === false && isPasswordDifferent === false && isPasswordShort === false) {
             const response = await axios.post(baseUrl + "/account/create", {
                 "email": email,
                 "password": password
             })
-            if (response.data === "Account created."){
+            if (response.data === "Account created.") {
                 history.push("/login")
             } else {
                 setRegisterError(true)
@@ -54,15 +54,20 @@ export default function CreateAccount() {
 
     return (
         <React.Fragment>
-            <h1>Create Account</h1>
-            <input type="text" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-            <input type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-            <input type="password" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
-            <p style={{ display: isEmailFormat === true ? "block" : "none" }}>*Invalid Email format.</p>
-            <p style={{ display: isPasswordShort === true ? "block" : "none" }}>*Password is too short. </p>
-            <p style={{ display: isPasswordDifferent === true ? "block" : "none" }}>*Password does not match. </p>
-            <button onClick={submitDetails}>Submit</button>
-            <p style={{ display: registerError === true ? "block" : "none" }}>*Unable to create account. Check error messages or try again later. </p>
+            <div className="page-width">
+                <div className="login-wrapper">
+                    <h1>Create Account</h1>
+                    <input className="login-input" type="text" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                    <input className="login-input" type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                    <input className="login-input" type="password" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
+                    <p className="warning-text" style={{ display: isEmailFormat === true ? "block" : "none" }}>*Invalid Email format.</p>
+                    <p className="warning-text" style={{ display: isPasswordShort === true ? "block" : "none" }}>*Password is too short. </p>
+                    <p className="warning-text" style={{ display: isPasswordDifferent === true ? "block" : "none" }}>*Password does not match. </p>
+                    <div className="login-btn-wrapper">
+                        <button className="cta" onClick={submitDetails}>Submit</button>
+                    </div>
+                    <p style={{ display: registerError === true ? "block" : "none" }}>*Unable to create account. Check error messages or try again later. </p>
+                </div></div>
         </React.Fragment>
     )
 }

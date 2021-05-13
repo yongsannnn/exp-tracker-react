@@ -17,10 +17,10 @@ export default function Header() {
                 <Link className="navbar-brand" style={{ display: "flex", height: "40px" }} to="/">
                     <img src={require("../tracker.png").default} alt="logo" /> <p className="logo-title">E-Track</p>
                 </Link>
-                <Link className="navbar-brand" style={{
+                <Link className="nav-item" style={{
                     display: context.checkLogin() === true ? "block" : "none"
                 }} to="/logout" onClick={logoutUser}>Log Out</Link>
-                <Link className="navbar-brand" style={{
+                <Link className="nav-item" style={{
                     display: context.checkLogin() === false ? "block" : "none"
                 }} to="/login">Log In</Link>
             </nav>

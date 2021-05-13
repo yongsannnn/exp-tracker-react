@@ -39,7 +39,7 @@ export default function Login() {
                         display: loginError === true ? "block" : "none"
                     }}>*Invalid credentials. Please try again.</p>
                     <div className="login-btn-wrapper">
-                        <button  className="cta" onClick={changeLogin}>Log in</button>  
+                        <button  className="cta" onClick={changeLogin}>Sign In</button>  
                     </div>
                     <div>
                         <Link className="create-acc" to="/register">Create account</Link>
