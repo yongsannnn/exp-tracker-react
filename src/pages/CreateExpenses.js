@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom"
+import LoginContext from "./LoginContext"
+import axios from "axios"
+import config from "../config"
+
+const baseUrl = config.baseUrl
 
 export default function CreateExpenses() {
     const history = useHistory();
+    let context = useContext(LoginContext)
     const [amount, setAmount] = useState(0)
     const [date, setDate] = useState("")
     const [category, setCategory] = useState("")
     const [memo, setMemo] = useState("")
     const [isLoaded, setIsLoaded] = useState(false)
     const [isAmountNegative, setAmountNegative] = useState(false)
-
+    const [mandatoryEmpty, setMandatoryEmpty] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(false)
 
     useEffect(() => {
         const checkUser = async () => {
@@ -24,14 +31,30 @@ export default function CreateExpenses() {
     }, [])
 
     const addExpenses = async () => {
+        // Amount and Date is mandatory
+        // Amount cannot be negative
         if (amount < 0){
             setAmountNegative(true)
         } else {
             setAmountNegative(false)
         }
 
-        if (isAmountNegative === false){
-            console.log("Sending this info to axios", amount, date, category, memo)
+        if (isAmountNegative === false && date !== "" && amount > 0){
+            console.log("Sending this info to axios", parseFloat(amount).toFixed(2), date, category, memo)
+            const response = await axios.post(baseUrl + "/expenses/add", {
+                "user_id": context.checkUserId(),
+                "amount": amount,
+                "date": date,
+                "category": category,
+                "memo": memo
+            })
+            if (response.data === "Expenses added."){
+                history.push("/expenses")
+            } else {
+                setErrorMessage(true)
+            }
+        } else {
+            setMandatoryEmpty(true)
         }
     }
 
@@ -43,8 +66,11 @@ export default function CreateExpenses() {
         return (
             <React.Fragment>
                 <h1>Add New Expenses</h1>
+                <label>Amount<span className="warning-text">*</span></label> 
                 <input type="number" name="amount" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)}></input>
+                <label>Date<span className="warning-text">*</span></label>
                 <input type="date" name="date" value={date} placeholder="Date" onChange={(e) => setDate(e.target.value)}></input>
+                <label>Category</label> 
                 <select name="cuisine_type" value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option>Category</option>
                     <option>Food</option>
@@ -53,8 +79,18 @@ export default function CreateExpenses() {
                     <option>Transport</option>
                     <option>Others</option>
                 </select>
-                <textarea rows="4" cols="50" name="memo" value={memo} placeholder="Memo" onChange={(e) => setMemo(e.target.value)}></textarea>
+                <label>Memo</label> 
+                <textarea rows="4" cols="50" name="memo" value={memo} placeholder="Write something here!" onChange={(e) => setMemo(e.target.value)}></textarea>
+                <div>
+                    <p className="warning-text"><span>*</span>Mandatory fields.</p>
+                </div>
                 <button onClick={addExpenses}>Complete</button>
+                <p className="warning-text" style={{
+                    display: mandatoryEmpty === true ? "block": "none"
+                }}>Check if all mandatory fields are filled.</p>
+                <p className="warning-text" style={{
+                    display: errorMessage === true ? "block": "none"
+                }}>Unable to create expenses. Try again later.</p>
             </React.Fragment>
         )
     }
