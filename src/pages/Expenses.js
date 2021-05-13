@@ -44,13 +44,13 @@ export default function Expenses() {
         let lst = []
         expensesList.map(p =>
             lst.push(
-                <React.Fragment>
-                    <div key={p._id}>
+                <React.Fragment key={p._id}>
+                    <div>
                         <p>{p.date}</p>
                         <p>{p.amount}</p>
                         <p>{p.category}</p>
                         <p>{p.memo}</p>
-                            <button>Edit</button>
+                            <Link to ={"/expenses/edit/" + p._id}>Edit</Link>
                             <button name={p._id} onClick={deleteExpenses}>Delete</button>
                     </div>
                     <p className="grey-line"></p>

@@ -68,6 +68,9 @@ function App() {
                             <Route exact path="/expenses/add">
                                 <CreateExpenses />
                             </Route>
+                            <Route exact path="/expenses/edit/:expense_id">
+                                <CreateExpenses />
+                            </Route>
                         </Switch>
                     </section>
                 </Router>
