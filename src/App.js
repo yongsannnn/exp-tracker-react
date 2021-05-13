@@ -7,12 +7,13 @@ import Landing from "./pages/Landing"
 import Expenses from "./pages/Expenses"
 import LoginContext from "./pages/LoginContext"
 import CreateAccount from "./pages/CreateAccount"
-// import './App.css';
+import CreateExpenses from "./pages/CreateExpenses"
+import './App.css';
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [userId, setUserId] = useState("")
-
+    
     const context = {
         checkLogin: () => {
             return loggedIn
@@ -45,11 +46,14 @@ function App() {
                             <Route exact path="/login">
                                 <Login />
                             </Route>
+                            <Route exact path="/register">
+                                <CreateAccount />
+                            </Route>
                             <Route exact path="/expenses">
                                 <Expenses />
                             </Route>
-                            <Route exact path="/register">
-                                <CreateAccount/>
+                            <Route exact path="/expenses/add">
+                                <CreateExpenses />
                             </Route>
                         </Switch>
                     </section>
