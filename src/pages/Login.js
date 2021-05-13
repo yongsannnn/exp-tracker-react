@@ -30,15 +30,22 @@ export default function Login() {
 
     return (
         <React.Fragment>
-            <h1>Log In</h1>
-            <input className="login-input" type="text" name="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}></input>
-            <input className="login-input" type="password" name="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}></input>
-            <p style={{
-                display: loginError === true ? "block" : "none"
-            }}>*Invalid credentials. Please try again.</p>
-            <button onClick={changeLogin}>Log in</button>
-            <div>
-                <Link to="/register">Create account</Link>
+            <div className="page-width">
+                <div className="login-wrapper">
+                    <h1>Log In</h1>
+                    <input className="login-input" type="text" name="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)}></input>
+                    <input className="login-input" type="password" name="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}></input>
+                    <p className="warning-text" style={{
+                        display: loginError === true ? "block" : "none"
+                    }}>*Invalid credentials. Please try again.</p>
+                    <div className="login-btn-wrapper">
+                        <button  className="cta" onClick={changeLogin}>Log in</button>  
+                    </div>
+                    <div>
+                        <Link className="create-acc" to="/register">Create account</Link>
+                    </div>
+
+                </div>
             </div>
         </React.Fragment>
 

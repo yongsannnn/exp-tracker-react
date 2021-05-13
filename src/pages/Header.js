@@ -10,17 +10,20 @@ export default function Header() {
         localStorage.clear()
         context.changeLogin()
     }
-    
+
     return (
         <React.Fragment>
-            <h1>Header</h1>
-            <Link to ="/">Home</Link>
-            <Link style={{
-                display: context.checkLogin() === true ? "block" : "none"
-            }} to="/logout" onClick={logoutUser}>Log Out</Link>
-            <Link style={{
-                display: context.checkLogin() === false ? "block" : "none"
-            }} to="/login">Log In</Link>
+            <nav className="navbar navbar-light bg-light p-3">
+                <Link className="navbar-brand" style={{ display: "flex", height: "40px" }} to="/">
+                    <img src={require("../tracker.png").default} alt="logo" /> <p className="logo-title">E-Track</p>
+                </Link>
+                <Link className="navbar-brand" style={{
+                    display: context.checkLogin() === true ? "block" : "none"
+                }} to="/logout" onClick={logoutUser}>Log Out</Link>
+                <Link className="navbar-brand" style={{
+                    display: context.checkLogin() === false ? "block" : "none"
+                }} to="/login">Log In</Link>
+            </nav>
         </React.Fragment>
 
     )

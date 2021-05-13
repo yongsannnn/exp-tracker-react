@@ -17,7 +17,7 @@ export default function Expenses() {
                 let response = await axios.post(baseUrl + "/expenses", {
                     "user_id": storedId
                 })
-                setExpensesList(response.data)
+                setExpensesList(response.data.reverse())
                 setIsLoaded(true)
             } else {
                 history.push("/login")
