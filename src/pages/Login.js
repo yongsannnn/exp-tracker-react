@@ -14,17 +14,21 @@ export default function Login() {
     const history = useHistory();
 
     const changeLogin = async () => {
-        const response = await axios.post(baseUrl + "/account/login", {
-            "email": email,
-            "password": password
-        })
-        if (response.data._id) {
-            localStorage.setItem("id", response.data._id)
-            context.changeLogin()
-            context.changeUser(response.data._id)
-            history.push("/")
-        } else {
+        if (email.length < 1 || password.length < 1) {
             setLoginError(true)
+        } else {
+            const response = await axios.post(baseUrl + "/account/login", {
+                "email": email,
+                "password": password
+            })
+            if (response.data._id) {
+                localStorage.setItem("id", response.data._id)
+                context.changeLogin()
+                context.changeUser(response.data._id)
+                history.push("/")
+            } else {
+                setLoginError(true)
+            }
         }
     }
 
@@ -39,7 +43,7 @@ export default function Login() {
                         display: loginError === true ? "block" : "none"
                     }}>*Invalid credentials. Please try again.</p>
                     <div className="login-btn-wrapper">
-                        <button  className="cta" onClick={changeLogin}>Sign In</button>  
+                        <button className="cta" onClick={changeLogin}>Sign In</button>
                     </div>
                     <div>
                         <Link className="create-acc" to="/register">Create account</Link>
