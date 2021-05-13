@@ -26,19 +26,32 @@ export default function Expenses() {
         loadItems()
         // eslint-disable-next-line 
     }, [])
+    
+    const deleteExpenses = async (e) => {
+        await axios.delete(baseUrl+"/expenses/"+e.target.name)
+
+        // Get index
+        const expensesIndex = expensesList.findIndex(p => p._id === e.target.name)
+        // Clone state
+        let cloned = [...expensesList]
+        // Remove the tea item using splice
+        cloned.splice(expensesIndex, 1)
+
+        setExpensesList(cloned)
+    }
 
     const renderExpensesList = () => {
         let lst = []
-        expensesList.map(e =>
+        expensesList.map(p =>
             lst.push(
                 <React.Fragment>
-                    <div key={e._id}>
-                        <p>{e.date}</p>
-                        <p>{e.amount}</p>
-                        <p>{e.category}</p>
-                        <p>{e.memo}</p>
+                    <div key={p._id}>
+                        <p>{p.date}</p>
+                        <p>{p.amount}</p>
+                        <p>{p.category}</p>
+                        <p>{p.memo}</p>
                             <button>Edit</button>
-                            <button>Delete</button>
+                            <button name={p._id} onClick={deleteExpenses}>Delete</button>
                     </div>
                     <p className="grey-line"></p>
                 </React.Fragment>
