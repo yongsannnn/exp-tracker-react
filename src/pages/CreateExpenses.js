@@ -64,7 +64,7 @@ export default function CreateExpenses() {
                 "memo": memo
             })
             if (response.data === "Expenses added."){
-                history.push("/expenses")
+                history.push("/")
             } else {
                 setErrorMessage(true)
             }
@@ -89,7 +89,7 @@ export default function CreateExpenses() {
                 "memo": memo
             })
             if (response.data === "Expense updated."){
-                history.push("/expenses")
+                history.push("/")
             } else {
                 setErrorMessage(true)
             }
@@ -117,7 +117,7 @@ export default function CreateExpenses() {
                 <input type="date" name="date" value={date} placeholder="Date" onChange={(e) => setDate(e.target.value)}></input>
                 <label>Category</label> 
                 <select name="cuisine_type" value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option option value="" disabled selected hidden>Select a category</option>
+                    <option value="" disabled selected hidden>Select a category</option>
                     <option>Food</option>
                     <option>Groceries</option>
                     <option>Social</option>

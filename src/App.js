@@ -2,8 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react"
 import Login from "./pages/Login"
+import Logout from "./pages/Logout"
 import Header from "./pages/Header"
-import Landing from "./pages/Landing"
 import Expenses from "./pages/Expenses"
 import LoginContext from "./pages/LoginContext"
 import CreateAccount from "./pages/CreateAccount"
@@ -54,16 +54,16 @@ function App() {
                     <section style={{ minHeight: "80vh" }}>
                         <Switch>
                             <Route exact path="/">
-                                <Landing />
+                                <Expenses />
                             </Route>
                             <Route exact path="/login">
                                 <Login />
                             </Route>
+                            <Route exact path="/logout">
+                                <Logout />
+                            </Route>
                             <Route exact path="/register">
                                 <CreateAccount />
-                            </Route>
-                            <Route exact path="/expenses">
-                                <Expenses />
                             </Route>
                             <Route exact path="/expenses/add">
                                 <CreateExpenses />

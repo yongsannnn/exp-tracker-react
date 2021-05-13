@@ -14,10 +14,10 @@ export default function Header() {
     return (
         <React.Fragment>
             <h1>Header</h1>
-            <Link to ="/expenses">Home</Link>
+            <Link to ="/">Home</Link>
             <Link style={{
                 display: context.checkLogin() === true ? "block" : "none"
-            }} to="/" onClick={logoutUser}>Log Out</Link>
+            }} to="/logout" onClick={logoutUser}>Log Out</Link>
             <Link style={{
                 display: context.checkLogin() === false ? "block" : "none"
             }} to="/login">Log In</Link>

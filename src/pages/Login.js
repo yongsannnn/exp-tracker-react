@@ -22,7 +22,7 @@ export default function Login() {
             localStorage.setItem("id", response.data._id)
             context.changeLogin()
             context.changeUser(response.data._id)
-            history.push("/expenses")
+            history.push("/")
         } else {
             setLoginError(true)
         }
