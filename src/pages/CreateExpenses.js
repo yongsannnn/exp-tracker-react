@@ -138,7 +138,7 @@ export default function CreateExpenses() {
                             <button className="cta" style={{
                                 display: isEditing === true ? "block" : "none"
                             }} onClick={editExpenses}>Complete</button>
-                            <Link className="cta back-cta" to="/">Back</Link>
+                            <Link className="cta link-cta" to="/">Back</Link>
                         </div>
                         <div className="mt-2">
                             <p className="warning-text" style={{

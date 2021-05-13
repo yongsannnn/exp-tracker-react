@@ -99,7 +99,7 @@ h1,h2,h3,h4,h5,h6{
     border-bottom-color: #4a4a4a;
 }
 
-.back-cta{
+.link-cta{
     text-decoration: none;
     margin-left:10px;
 }
@@ -110,7 +110,76 @@ h1,h2,h3,h4,h5,h6{
     display: flex;
     justify-content: center;
 }
+.footer-list{
+    padding:0;
+}
 
+.footer-link{
+    list-style-type: none;
+    margin-bottom: 0em;
+    text-align: center;
+}
+
+.footer-text{
+    color: #777777;
+}
+
+.footer-header{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.expenses-heading{
+    display:flex;
+    justify-content: space-between;
+}
+
+.indi-exp-mandatory{
+    display:flex;
+    justify-content: space-between;
+}
+
+.memo{
+    min-height: 100px;
+    background:#e8e8e8;
+    border-radius: 1em;
+    padding: 0.5em;
+    font-style: italic;
+}
+
+.edit-btn{
+    height:30px;
+    width:26px;
+    border-radius: 10px;
+    color:white;
+    background-color:rgb(90, 207, 90);
+    padding-top: 6px;
+}
+.edit-btn:hover{
+    text-decoration:none;
+    color:grey;
+}
+.delete-btn{
+    border: none;
+    background-color:rgb(218, 86, 86);
+    color:white;
+    height:30px;
+    border-radius: 10px;
+    margin-left:5px;
+
+}
+.delete-btn:hover{
+    color:grey;
+}
+.memo-button-wrapper{
+    position: relative;
+}
+
+.indi-exp-button{
+    position: absolute;
+    text-align: center;
+    right: 2%;
+    bottom: 10%;
+}
 
 /* Mobile view (inclusive of 425) */
 @media only screen and (max-width: 425px){

@@ -9,6 +9,7 @@ export default function Expenses() {
     const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false)
     const [expensesList, setExpensesList] = useState([])
+    const [total, setTotal] = useState(0)
 
     useEffect(() => {
         const loadItems = async () => {
@@ -26,9 +27,17 @@ export default function Expenses() {
         loadItems()
         // eslint-disable-next-line 
     }, [])
-    
+
+    useEffect(() => {
+        let subTotal = 0;
+        for (let i of expensesList) {
+            subTotal += parseFloat(i.amount)
+        }
+        setTotal(subTotal.toFixed(2))
+    }, [expensesList])
+
     const deleteExpenses = async (e) => {
-        await axios.delete(baseUrl+"/expenses/"+e.target.name)
+        await axios.delete(baseUrl + "/expenses/" + e.target.name)
 
         // Get index
         const expensesIndex = expensesList.findIndex(p => p._id === e.target.name)
@@ -46,12 +55,18 @@ export default function Expenses() {
             lst.push(
                 <React.Fragment key={p._id}>
                     <div>
-                        <p>{p.date}</p>
-                        <p>{p.amount}</p>
-                        <p>{p.category}</p>
-                        <p>{p.memo}</p>
-                            <Link to ={"/expenses/edit/" + p._id}>Edit</Link>
-                            <button name={p._id} onClick={deleteExpenses}>Delete</button>
+                        <div className="indi-exp-mandatory">
+                            <p>{p.date}</p>
+                            <p className="warning-text">${parseFloat(p.amount).toFixed(2)}</p>
+                        </div>
+                        <p> Category: <span>{p.category}</span></p>
+                        <div className="memo-button-wrapper">
+                            <p className="memo">{p.memo}</p>
+                            <div className="indi-exp-button">
+                                <Link to={"/expenses/edit/" + p._id} className="fas fa-edit edit-btn"></Link>
+                                <button className="fas fa-trash-alt delete-btn" name={p._id} onClick={deleteExpenses}></button>
+                            </div>
+                        </div>
                     </div>
                     <p className="grey-line"></p>
                 </React.Fragment>
@@ -59,7 +74,7 @@ export default function Expenses() {
         )
         if (lst.length === 0) {
             lst.push(
-                <div>No expenses to display.</div>
+                <div className="login-btn-wrapper"><i>No expenses to display.</i></div>
             )
         }
         return lst
@@ -72,13 +87,17 @@ export default function Expenses() {
     } else {
         return (
             <React.Fragment>
-                <h1>Expenses</h1>
-                <Link to="/expenses/add">Add</Link>
-
-                <h6>
-                    All expenses
-                </h6>
-                {renderExpensesList()}
+                <div className="page-width" style={{ display: "block" }}>
+                    <div className="expenses-heading">
+                        <h1>Account Book</h1>
+                        <Link className="cta link-cta" to="/expenses/add">Add</Link>
+                    </div>
+                    <h5>
+                        Total Spending: ${total}
+                    </h5>
+                    <p className="grey-line"></p>
+                    {renderExpensesList()}
+                </div>
             </React.Fragment>
 
         )
