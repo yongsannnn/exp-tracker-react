@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Login from "./pages/Login"
 import Header from "./pages/Header"
 import Landing from "./pages/Landing"
@@ -9,11 +9,12 @@ import LoginContext from "./pages/LoginContext"
 import CreateAccount from "./pages/CreateAccount"
 import CreateExpenses from "./pages/CreateExpenses"
 import './App.css';
+// import { useEffect } from "react/cjs/react.production.min";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [userId, setUserId] = useState("")
-    
+
     const context = {
         checkLogin: () => {
             return loggedIn
@@ -32,6 +33,18 @@ function App() {
             }
         }
     }
+
+    // check if localstorage has id
+    useEffect(()=>{
+        const checkStorage = async () => {
+            const storedId = localStorage.getItem("id")
+            if (storedId) {
+                setUserId(storedId)
+                setLoggedIn(true)
+            }
+        }
+        checkStorage()
+    },[])
 
     return (
         <LoginContext.Provider value={context}>

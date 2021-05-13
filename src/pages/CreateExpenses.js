@@ -40,7 +40,6 @@ export default function CreateExpenses() {
         }
 
         if (isAmountNegative === false && date !== "" && amount > 0){
-            console.log("Sending this info to axios", parseFloat(amount).toFixed(2), date, category, memo)
             const response = await axios.post(baseUrl + "/expenses/add", {
                 "user_id": context.checkUserId(),
                 "amount": amount,
