@@ -15,6 +15,7 @@ export default function CreateAccount() {
     const [isPasswordDifferent, setIsPasswordDifferent] = useState(false)
     const [isEmailFormat, setIsEmailFormat] = useState(false)
     const [registerError, setRegisterError] = useState(false)
+    const [emailUsed, setEmailUsed] = useState(false)
 
 
     function validateEmail(email) {
@@ -40,12 +41,15 @@ export default function CreateAccount() {
         }
 
         if (isEmailFormat === false && isPasswordDifferent === false && isPasswordShort === false) {
+            setRegisterError(false)
             const response = await axios.post(baseUrl + "/account/create", {
                 "email": email,
                 "password": password
             })
             if (response.data === "Account created.") {
                 history.push("/login")
+            } else if (response.data === "Email in used."){
+                setEmailUsed(true)
             } else {
                 setRegisterError(true)
             }
@@ -61,12 +65,13 @@ export default function CreateAccount() {
                     <input className="login-input" type="password" placeholder="Password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                     <input className="login-input" type="password" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
                     <p className="warning-text" style={{ display: isEmailFormat === true ? "block" : "none" }}>*Invalid Email format.</p>
+                    <p className="warning-text" style={{ display: emailUsed === true ? "block" : "none" }}>*Email in used.</p>
                     <p className="warning-text" style={{ display: isPasswordShort === true ? "block" : "none" }}>*Password is too short. </p>
                     <p className="warning-text" style={{ display: isPasswordDifferent === true ? "block" : "none" }}>*Password does not match. </p>
                     <div className="login-btn-wrapper">
                         <button className="cta" onClick={submitDetails}>Submit</button>
                     </div>
-                    <p style={{ display: registerError === true ? "block" : "none" }}>*Unable to create account. Check error messages or try again later. </p>
+                    <p className="warning-text" style={{ display: registerError === true ? "block" : "none" }}>*Unable to create account. Check error messages or try again later. </p>
                 </div></div>
         </React.Fragment>
     )

@@ -1,5 +1,5 @@
 const config = {
-    "baseUrl":"https://3000-turquoise-pigeon-7tqai59h.ws-us04.gitpod.io"
+    "baseUrl":"https://gys-exp-tracker.herokuapp.com"
 }
 
 export default config
