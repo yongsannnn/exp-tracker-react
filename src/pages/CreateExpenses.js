@@ -55,7 +55,7 @@ export default function CreateExpenses() {
             setAmountNegative(false)
         }
 
-        if (isAmountNegative === false && date !== "" && amount > 0) {
+        if (isAmountNegative === false && date !== "" && amount > 0 && (category !== "" && category !== "Select a category")) {
             const response = await axios.post(baseUrl + "/expenses/add", {
                 "user_id": context.checkUserId(),
                 "amount": amount,
@@ -79,7 +79,7 @@ export default function CreateExpenses() {
         } else {
             setAmountNegative(false)
         }
-        if (isAmountNegative === false && date !== "" && amount > 0) {
+        if (isAmountNegative === false && date !== "" && amount > 0 && (category !== "" && category !== "Select a category")) {
             const response = await axios.put(baseUrl + "/expenses/edit", {
                 "expense_id": expense_id,
                 "user_id": context.checkUserId(),
@@ -117,9 +117,9 @@ export default function CreateExpenses() {
                         <input className="login-input" type="number" name="amount" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)}></input>
                         <label>Date<span className="warning-text">*</span></label>
                         <input className="login-input" type="date" name="date" value={date} placeholder="Date" onChange={(e) => setDate(e.target.value)}></input>
-                        <label>Category</label>
+                        <label>Category<span className="warning-text">*</span></label>
                         <select className="login-input" name="cuisine_type" value={category} onChange={(e) => setCategory(e.target.value)}>
-                            <option value="" disabled selected hidden>Select a category</option>
+                            <option>Select a category</option>
                             <option>Food</option>
                             <option>Groceries</option>
                             <option>Social</option>

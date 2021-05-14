@@ -10,6 +10,7 @@ export default function Expenses() {
     const [isLoaded, setIsLoaded] = useState(false)
     const [expensesList, setExpensesList] = useState([])
     const [total, setTotal] = useState(0)
+    const [searchCategory, setSearchCategory] = useState("")
 
     useEffect(() => {
         const loadItems = async () => {
@@ -74,10 +75,34 @@ export default function Expenses() {
         )
         if (lst.length === 0) {
             lst.push(
-                <div className="login-btn-wrapper"><i>No expenses to display.</i></div>
+                <div className="login-btn-wrapper" key="1"><i>No expenses to display.</i></div>
             )
         }
         return lst
+    }
+
+    const filterSearch = async () => {
+        let storedId = localStorage.getItem("id")
+        if (searchCategory !== "Search by category") {
+            let results = await axios.post(baseUrl + "/individual/expenses/search", {
+                "user_id": storedId,
+                "search": searchCategory
+            })
+            setExpensesList(results.data.reverse())
+        } else {
+            let response = await axios.post(baseUrl + "/expenses", {
+                "user_id": storedId
+            })
+            setExpensesList(response.data.reverse())
+        }
+    }
+
+    const resetSearch = async () => {
+        let response = await axios.post(baseUrl + "/expenses", {
+            "user_id": localStorage.getItem("id")
+        })
+        setExpensesList(response.data.reverse())
+        setSearchCategory("")
     }
 
     if (isLoaded === false) {
@@ -91,6 +116,18 @@ export default function Expenses() {
                     <div className="expenses-heading">
                         <h1>Account Book</h1>
                         <Link className="cta link-cta" to="/expenses/add">Add</Link>
+                    </div>
+                    <div style={{display:"flex"}}>
+                        <select className="login-input" value={searchCategory} onChange={(e) => setSearchCategory(e.target.value)}>
+                            <option>Search by category</option>
+                            <option>Food</option>
+                            <option>Groceries</option>
+                            <option>Social</option>
+                            <option>Transport</option>
+                            <option>Others</option>
+                        </select>
+                        <button className="cta search-btn" onClick={filterSearch}><i className="fa fa-search"></i></button>
+                        <button className="cta search-btn" onClick={resetSearch}><i className="fas fa-undo-alt"></i></button>
                     </div>
                     <h5>
                         Total Spending: ${total}
