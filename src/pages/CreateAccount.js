@@ -40,7 +40,7 @@ export default function CreateAccount() {
             setIsPasswordDifferent(false)
         }
 
-        if (isEmailFormat === false && isPasswordDifferent === false && isPasswordShort === false) {
+        if (isEmailFormat === false && isPasswordDifferent === false && isPasswordShort === false && password !== "" && email !== "") {
             setRegisterError(false)
             const response = await axios.post(baseUrl + "/account/create", {
                 "email": email,
